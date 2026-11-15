@@ -30,6 +30,18 @@
       "url": "https://www.tehrantabligh.net/framework/user/login"
     },
     {
+      "id": "screenshot-before-login",
+      "action": "screenshot",
+      "path": "screenshots/tehrantabligh-before-login.png",
+      "fullPage": true
+    },
+    {
+      "id": "send-login-page-to-bale",
+      "action": "sendToBale",
+      "chatIdFrom": "bale.chatId",
+      "caption": "🔐 Tehran Tabligh - Login Page"
+    },
+    {
       "id": "enter-username",
       "action": "type",
       "selector": "input[name='username']",
@@ -55,7 +67,7 @@
     {
       "id": "take-screenshot",
       "action": "screenshot",
-      "path": "screenshots/tehrantabligh.png",
+      "path": "screenshots/tehrantabligh-dashboard.png",
       "fullPage": true
     },
     {
