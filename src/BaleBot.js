@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import FormData from 'form-data';
 import path from 'path';
+import { createReadStream } from 'fs';
 
 /**
  * BaleBot - Helper class for interacting with Bale Messenger Bot API
@@ -77,16 +78,15 @@ export class BaleBot {
       // Check if file exists
       await fs.access(photoPath);
 
-      // Read file
-      const fileBuffer = await fs.readFile(photoPath);
       const fileName = path.basename(photoPath);
-
-      console.log(`Sending photo: ${fileName} (${fileBuffer.length} bytes) to chat ${chatId}`);
+      console.log(`Sending photo: ${fileName} to chat ${chatId}`);
 
       // Create FormData
       const formData = new FormData();
       formData.append('chat_id', String(chatId));
-      formData.append('photo', fileBuffer, {
+      
+      // Use createReadStream instead of buffer for better compatibility
+      formData.append('photo', createReadStream(photoPath), {
         filename: fileName,
         contentType: 'image/png'
       });
