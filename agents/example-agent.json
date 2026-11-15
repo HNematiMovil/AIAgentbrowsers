@@ -1,0 +1,43 @@
+{
+  "id": "example-agent",
+  "name": "Example Agent",
+  "enabled": false,
+  
+  "browser": {
+    "headless": false,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "navigationTimeout": 30000
+  },
+
+  "credentials": {
+    "username": "user@example.com",
+    "password": "password123"
+  },
+
+  "tasks": [
+    {
+      "id": "navigate-home",
+      "action": "goto",
+      "url": "https://example.com"
+    },
+    {
+      "id": "wait-for-page",
+      "action": "wait",
+      "duration": 2000
+    },
+    {
+      "id": "get-title",
+      "action": "getText",
+      "selector": "h1"
+    },
+    {
+      "id": "take-screenshot",
+      "action": "screenshot",
+      "path": "screenshots/example.png",
+      "fullPage": true
+    }
+  ]
+}

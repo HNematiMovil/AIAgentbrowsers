@@ -1,0 +1,31 @@
+{
+  "name": "chromium-controller",
+  "version": "1.0.0",
+  "description": "Node.js Chromium Controller using Puppeteer",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node cli.js",
+    "test:agent": "node test-agent.js",
+    "example": "node examples/basic.js",
+    "example:screenshot": "node examples/screenshot.js",
+    "example:scrape": "node examples/scrape.js",
+    "example:playwright": "node examples/playwright-features.js",
+    "agent:run": "node examples/run-agent.js",
+    "agent:run-all": "node examples/run-all-agents.js",
+    "agent:parallel": "node examples/run-parallel.js",
+    "cli": "node cli.js",
+    "install:browsers": "npx playwright install"
+  },
+  "keywords": [
+    "chromium",
+    "puppeteer",
+    "browser-automation",
+    "web-scraping"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  }
+}

@@ -1,0 +1,57 @@
+
+{
+  "id": "tehrantabligh",
+  "name": "Tehran Tabligh",
+  "enabled": true,
+
+  "browser": {
+    "headless": true,
+    "viewport": {
+      "width": 1366,
+      "height": 900
+    },
+    "navigationTimeout": 60000
+  },
+
+  "credentials": {
+    "username": "steel3765@gmail.com",
+    "password": "15965367049398"
+  },
+
+  "tasks": [
+    {
+      "id": "open-login",
+      "action": "goto",
+      "url": "https://www.tehrantabligh.net/framework/user/login"
+    },
+    {
+      "id": "enter-username",
+      "action": "type",
+      "selector": "input[name='username']",
+      "valueFrom": "credentials.username"
+    },
+    {
+      "id": "enter-password",
+      "action": "type",
+      "selector": "input[name='password']",
+      "valueFrom": "credentials.password"
+    },
+    {
+      "id": "submit-login",
+      "action": "click",
+      "selector": "button[type='submit']",
+      "waitForNavigation": true
+    },
+    {
+      "id": "open-ads-management",
+      "action": "goto",
+      "url": "https://www.tehrantabligh.net/ads/manageprop/nav/1000/1/"
+    },
+    {
+      "id": "take-screenshot",
+      "action": "screenshot",
+      "path": "screenshots/tehrantabligh.png",
+      "fullPage": true
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "id": "demo-agent",
+  "name": "Demo Agent - Full Feature Showcase",
+  "enabled": false,
+  
+  "browser": {
+    "headless": false,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "navigationTimeout": 60000
+  },
+
+  "credentials": {
+    "searchTerm": "web automation"
+  },
+
+  "tasks": [
+    {
+      "id": "open-homepage",
+      "action": "goto",
+      "url": "https://example.com",
+      "delayAfter": 1000
+    },
+    {
+      "id": "get-page-title",
+      "action": "getText",
+      "selector": "h1"
+    },
+    {
+      "id": "screenshot-homepage",
+      "action": "screenshot",
+      "path": "screenshots/demo-homepage.png",
+      "fullPage": true
+    },
+    {
+      "id": "navigate-to-search",
+      "action": "goto",
+      "url": "https://duckduckgo.com"
+    },
+    {
+      "id": "wait-for-search-input",
+      "action": "waitForSelector",
+      "selector": "input[name='q']",
+      "timeout": 10000
+    },
+    {
+      "id": "type-search-query",
+      "action": "type",
+      "selector": "input[name='q']",
+      "valueFrom": "credentials.searchTerm",
+      "delayAfter": 500
+    },
+    {
+      "id": "submit-search",
+      "action": "click",
+      "selector": "button[type='submit']",
+      "waitForNavigation": true
+    },
+    {
+      "id": "wait-for-results",
+      "action": "waitForSelector",
+      "selector": "[data-testid='result']",
+      "timeout": 10000
+    },
+    {
+      "id": "extract-search-results",
+      "action": "evaluate",
+      "function": "() => { const results = []; document.querySelectorAll('[data-testid=\"result\"]').forEach((el, i) => { if (i < 5) { const title = el.querySelector('h2'); const link = el.querySelector('a'); if (title && link) { results.push({ position: i + 1, title: title.textContent.trim(), url: link.href }); } } }); return results; }"
+    },
+    {
+      "id": "screenshot-results",
+      "action": "screenshot",
+      "path": "screenshots/demo-search-results.png",
+      "fullPage": false
+    },
+    {
+      "id": "get-all-result-titles",
+      "action": "getTextAll",
+      "selector": "[data-testid='result-title-a']"
+    },
+    {
+      "id": "get-cookies",
+      "action": "getCookies"
+    },
+    {
+      "id": "change-viewport-mobile",
+      "action": "setViewport",
+      "viewport": {
+        "width": 375,
+        "height": 667
+      },
+      "delayAfter": 1000
+    },
+    {
+      "id": "screenshot-mobile-view",
+      "action": "screenshot",
+      "path": "screenshots/demo-mobile-view.png",
+      "fullPage": false
+    },
+    {
+      "id": "final-wait",
+      "action": "wait",
+      "duration": 2000
+    }
+  ]
+}

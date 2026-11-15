@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Screenshots and Results
+screenshots/
+results/
+*.png
+*.jpg
+*.jpeg
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+dist/
+build/
+
+# Puppeteer cache
+.cache/
+
+# Keep example directories but ignore their contents
+!screenshots/.gitkeep
+!results/.gitkeep
