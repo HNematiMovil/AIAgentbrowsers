@@ -26,8 +26,12 @@ export class BaleBot {
 
       if (useFormData) {
         // Use FormData for file uploads
+        // Get headers from FormData (includes boundary)
+        const headers = data.getHeaders ? data.getHeaders() : {};
+        
         response = await fetch(url, {
           method: 'POST',
+          headers: headers,
           body: data
         });
       } else {
@@ -77,9 +81,11 @@ export class BaleBot {
       const fileBuffer = await fs.readFile(photoPath);
       const fileName = path.basename(photoPath);
 
+      console.log(`Sending photo: ${fileName} (${fileBuffer.length} bytes) to chat ${chatId}`);
+
       // Create FormData
       const formData = new FormData();
-      formData.append('chat_id', chatId);
+      formData.append('chat_id', String(chatId));
       formData.append('photo', fileBuffer, {
         filename: fileName,
         contentType: 'image/png'
