@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node cli.js",
     "test:agent": "node test-agent.js",
+    "test:bale": "node examples/test-bale.js",
     "example": "node examples/basic.js",
     "example:screenshot": "node examples/screenshot.js",
     "example:scrape": "node examples/scrape.js",
@@ -30,6 +31,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "playwright": "^1.40.0"
+    "playwright": "^1.40.0",
+    "form-data": "^4.0.0"
   }
 }

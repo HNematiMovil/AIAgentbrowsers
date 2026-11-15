@@ -1,4 +1,5 @@
 import ChromiumController from './ChromiumController.js';
+import { BaleBot } from './BaleBot.js';
 import { promises as fs } from 'fs';
 import path from 'path';
 
@@ -9,8 +10,10 @@ export class TaskExecutor {
   constructor(agentConfig) {
     this.config = agentConfig;
     this.controller = null;
+    this.baleBot = null;
     this.taskResults = [];
     this.isRunning = false;
+    this.lastScreenshotPath = null;
   }
 
   /**
@@ -28,6 +31,12 @@ export class TaskExecutor {
     this.controller = new ChromiumController(browserOptions);
     await this.controller.launch();
     await this.controller.newPage();
+
+    // Initialize BaleBot if token is provided
+    if (this.config.bale?.token) {
+      this.baleBot = new BaleBot(this.config.bale.token);
+      console.log('✓ Bale Bot initialized');
+    }
 
     console.log(`✓ Initialized browser for agent: ${this.config.name}`);
   }
@@ -133,6 +142,10 @@ export class TaskExecutor {
             fullPage: task.fullPage ?? true,
             ...task.options
           });
+          
+          // Store the last screenshot path
+          this.lastScreenshotPath = screenshotPath;
+          
           result = { path: screenshotPath };
           break;
 
@@ -226,6 +239,79 @@ export class TaskExecutor {
         case 'isEnabled':
           const enabled = await this.controller.isEnabled(task.selector);
           result = { selector: task.selector, enabled };
+          break;
+
+        case 'sendToBale':
+          if (!this.baleBot) {
+            throw new Error('Bale bot not initialized. Add "bale.token" to agent config');
+          }
+
+          let filePath = task.file || this.lastScreenshotPath;
+          
+          if (task.fileFrom) {
+            filePath = this.resolveValue(task.fileFrom);
+          }
+
+          if (!filePath) {
+            throw new Error('No file specified. Use "file", "fileFrom", or take a screenshot first');
+          }
+
+          let chatId = task.chatId;
+          if (task.chatIdFrom) {
+            chatId = this.resolveValue(task.chatIdFrom);
+          }
+
+          if (!chatId) {
+            throw new Error('chatId is required for sendToBale action');
+          }
+
+          const sendResult = await this.baleBot.sendPhoto(chatId, filePath, {
+            caption: task.caption || '',
+            parse_mode: task.parseMode
+          });
+
+          result = { 
+            chatId, 
+            file: filePath, 
+            messageId: sendResult.message_id,
+            sent: true 
+          };
+          break;
+
+        case 'sendMessageToBale':
+          if (!this.baleBot) {
+            throw new Error('Bale bot not initialized. Add "bale.token" to agent config');
+          }
+
+          let messageText = task.text;
+          if (task.textFrom) {
+            messageText = this.resolveValue(task.textFrom);
+          }
+
+          if (!messageText) {
+            throw new Error('text is required for sendMessageToBale action');
+          }
+
+          let messageChatId = task.chatId;
+          if (task.chatIdFrom) {
+            messageChatId = this.resolveValue(task.chatIdFrom);
+          }
+
+          if (!messageChatId) {
+            throw new Error('chatId is required for sendMessageToBale action');
+          }
+
+          const messageResult = await this.baleBot.sendMessage(messageChatId, messageText, {
+            parse_mode: task.parseMode,
+            reply_markup: task.replyMarkup
+          });
+
+          result = { 
+            chatId: messageChatId, 
+            text: messageText,
+            messageId: messageResult.message_id,
+            sent: true 
+          };
           break;
 
         default:

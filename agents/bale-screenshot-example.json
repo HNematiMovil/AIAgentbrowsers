@@ -1,0 +1,45 @@
+{
+  "id": "bale-screenshot-example",
+  "name": "Bale Screenshot Example",
+  "enabled": false,
+  
+  "browser": {
+    "headless": true,
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "navigationTimeout": 60000
+  },
+
+  "bale": {
+    "token": "YOUR_BALE_BOT_TOKEN",
+    "chatId": "YOUR_CHAT_ID"
+  },
+
+  "tasks": [
+    {
+      "id": "open-website",
+      "action": "goto",
+      "url": "https://example.com"
+    },
+    {
+      "id": "take-screenshot",
+      "action": "screenshot",
+      "path": "screenshots/example-bale.png",
+      "fullPage": true
+    },
+    {
+      "id": "send-to-bale",
+      "action": "sendToBale",
+      "chatIdFrom": "bale.chatId",
+      "caption": "Screenshot from automation bot 🤖"
+    },
+    {
+      "id": "send-message",
+      "action": "sendMessageToBale",
+      "chatIdFrom": "bale.chatId",
+      "text": "✅ Screenshot sent successfully!"
+    }
+  ]
+}

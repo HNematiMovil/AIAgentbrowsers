@@ -9,6 +9,7 @@ Playwright provides modern browser automation with support for Chromium, Firefox
 - 🚀 **Powered by Playwright** - Modern, fast, and reliable browser automation
 - 🎯 **Multi-Browser Support** - Chromium, Firefox, and WebKit
 - 🤖 **JSON-based Agent Task System** - Define browser automation workflows in JSON
+- 💬 **Bale Messenger Integration** - Send screenshots and notifications to Bale bot
 - 🌐 Browser automation and control
 - 📸 Screenshot capabilities
 - 🔍 Web scraping functionality
@@ -18,7 +19,7 @@ Playwright provides modern browser automation with support for Chromium, Firefox
 - 🎯 Element selection and manipulation
 - 🔄 Sequential or parallel agent execution
 - 📊 Comprehensive result tracking and logging
-- ⚡ **24 Task Actions** - Including Playwright-exclusive features
+- ⚡ **26 Task Actions** - Including Playwright-exclusive features and Bale integration
 - 🛠️ **Auto-Waiting** - Smart waits for elements automatically
 
 ## Installation
@@ -359,10 +360,12 @@ try {
 ## Documentation
 
 - **[README.md](README.md)** - Main documentation (this file)
-- **[AGENT_GUIDE.md](AGENT_GUIDE.md)** - Complete guide for the agent task system (24 actions)
+- **[AGENT_GUIDE.md](AGENT_GUIDE.md)** - Complete guide for the agent task system (26 actions)
+- **[BALE_INTEGRATION.md](BALE_INTEGRATION.md)** - Send screenshots to Bale Messenger
 - **[PLAYWRIGHT_FEATURES.md](PLAYWRIGHT_FEATURES.md)** - Playwright-specific features and advantages
 - **[MIGRATION_FROM_PUPPETEER.md](MIGRATION_FROM_PUPPETEER.md)** - Migration guide from Puppeteer
 - **[QUICK_START.md](QUICK_START.md)** - Get started in minutes
+- **[SETUP.md](SETUP.md)** - Complete installation guide
 
 ## CLI Commands
 

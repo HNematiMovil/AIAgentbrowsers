@@ -91,9 +91,9 @@ Each task must have:
 - **`action`** (required) - Action type (see below)
 - Additional fields depending on the action
 
-### Available Actions (24 total)
+### Available Actions (26 total)
 
-The system now uses **Playwright** for enhanced browser automation with additional actions beyond the original set.
+The system now uses **Playwright** for enhanced browser automation with additional actions beyond the original set, plus **Bale Messenger** integration for notifications.
 
 #### 1. `goto` - Navigate to URL
 
@@ -568,6 +568,81 @@ Change the browser viewport size.
 
 **Fields:**
 - `viewport` (required) - Viewport object with width and height
+
+---
+
+#### 23. `sendToBale` - Send Screenshot to Bale
+
+Send a photo/screenshot to Bale Messenger bot.
+
+```json
+{
+  "id": "send-screenshot",
+  "action": "sendToBale",
+  "chatId": "123456789",
+  "caption": "Screenshot from automation 📸"
+}
+```
+
+Or reference from config:
+
+```json
+{
+  "id": "send-to-bale",
+  "action": "sendToBale",
+  "chatIdFrom": "bale.chatId",
+  "caption": "Dashboard Screenshot"
+}
+```
+
+**Fields:**
+- `chatId` (optional) - Chat ID to send to
+- `chatIdFrom` (optional) - Path to chat ID in config (e.g., `"bale.chatId"`)
+- `file` (optional) - Specific file path to send
+- `fileFrom` (optional) - Path to file in config
+- `caption` (optional) - Caption text for the photo
+- `parseMode` (optional) - Parse mode: `Markdown` or `HTML`
+
+**Requires:** `bale.token` in agent config
+
+**Behavior:** If no `file` specified, sends the last screenshot taken
+
+---
+
+#### 24. `sendMessageToBale` - Send Text to Bale
+
+Send a text message to Bale Messenger.
+
+```json
+{
+  "id": "notify-complete",
+  "action": "sendMessageToBale",
+  "chatId": "123456789",
+  "text": "✅ Task completed successfully!"
+}
+```
+
+Or with formatting:
+
+```json
+{
+  "id": "formatted-notification",
+  "action": "sendMessageToBale",
+  "chatIdFrom": "bale.chatId",
+  "text": "*Bold* _Italic_ `Code`",
+  "parseMode": "Markdown"
+}
+```
+
+**Fields:**
+- `chatId` (optional) - Chat ID to send to
+- `chatIdFrom` (optional) - Path to chat ID in config
+- `text` (required) - Message text
+- `textFrom` (optional) - Path to text in config
+- `parseMode` (optional) - `Markdown` or `HTML`
+- `replyMarkup` (optional) - Inline keyboard markup
+
+**Requires:** `bale.token` in agent config
 
 ---
 

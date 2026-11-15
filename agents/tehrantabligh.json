@@ -18,6 +18,11 @@
     "password": "15965367049398"
   },
 
+  "bale": {
+    "token": "832778309:ksdzpGgwfDUbZ_mJEQJh1t1lLcWtXmPV1ao",
+    "chatId": "1856633295"
+  },
+
   "tasks": [
     {
       "id": "open-login",
@@ -52,6 +57,12 @@
       "action": "screenshot",
       "path": "screenshots/tehrantabligh.png",
       "fullPage": true
+    },
+    {
+      "id": "send-to-bale",
+      "action": "sendToBale",
+      "chatIdFrom": "bale.chatId",
+      "caption": "📸 Tehran Tabligh Dashboard Screenshot"
     }
   ]
 }
