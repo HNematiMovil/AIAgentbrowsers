@@ -75,7 +75,7 @@ export class TaskExecutor {
       switch (task.action) {
         case 'goto':
           await this.controller.goto(task.url, {
-            waitUntil: task.waitUntil || 'networkidle2',
+            waitUntil: task.waitUntil || 'networkidle',
             timeout: task.timeout || this.config.browser?.navigationTimeout
           });
           result = { url: task.url };
