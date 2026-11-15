@@ -1,7 +1,7 @@
 {
   "name": "chromium-controller",
   "version": "1.0.0",
-  "description": "Node.js Chromium Controller using Puppeteer",
+  "description": "Node.js Chromium Controller using Playwright with JSON-based agent task system",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -18,10 +18,14 @@
     "install:browsers": "npx playwright install"
   },
   "keywords": [
+    "playwright",
     "chromium",
-    "puppeteer",
     "browser-automation",
-    "web-scraping"
+    "web-scraping",
+    "automation",
+    "testing",
+    "agent-system",
+    "task-automation"
   ],
   "author": "",
   "license": "MIT",

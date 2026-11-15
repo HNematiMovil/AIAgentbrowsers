@@ -91,7 +91,9 @@ Each task must have:
 - **`action`** (required) - Action type (see below)
 - Additional fields depending on the action
 
-### Available Actions
+### Available Actions (24 total)
+
+The system now uses **Playwright** for enhanced browser automation with additional actions beyond the original set.
 
 #### 1. `goto` - Navigate to URL
 
@@ -162,7 +164,42 @@ Or reference from credentials:
 - `selector` (required) - CSS selector for input field
 - `value` (optional) - Text to type
 - `valueFrom` (optional) - Path to value in agent config (e.g., `credentials.username`)
-- `options` (optional) - Typing options (delay)
+- `options` (optional) - Typing options
+  - `delay` (number) - Delay between keystrokes in ms (if not specified, uses fast `fill`)
+
+**Note**: Without `delay` option, uses Playwright's fast `fill` method. With `delay`, types character-by-character.
+
+---
+
+#### 3b. `fill` - Fill Input (Fast)
+
+Fill an input field instantly (Playwright-specific, faster than type).
+
+```json
+{
+  "id": "fill-username",
+  "action": "fill",
+  "selector": "#username",
+  "value": "myusername"
+}
+```
+
+Or with credentials:
+
+```json
+{
+  "id": "fill-password",
+  "action": "fill",
+  "selector": "#password",
+  "valueFrom": "credentials.password"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector for input field
+- `value` (optional) - Text to fill
+- `valueFrom` (optional) - Path to value in agent config
+- `options` (optional) - Fill options
 
 ---
 
@@ -200,8 +237,178 @@ Wait for an element to appear.
 **Fields:**
 - `selector` (required) - CSS selector
 - `timeout` (optional) - Maximum wait time in ms
-- `visible` (optional) - Wait for element to be visible
-- `hidden` (optional) - Wait for element to be hidden
+- `state` (optional) - Element state: `visible`, `attached`, `hidden`, `detached` (default: `visible`)
+- `options` (optional) - Additional wait options
+
+---
+
+#### 15. `select` - Select Dropdown Option
+
+Select an option from a dropdown/select element.
+
+```json
+{
+  "id": "select-country",
+  "action": "select",
+  "selector": "#country",
+  "value": "USA"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector for select element
+- `value` (required) - Option value to select
+
+---
+
+#### 16. `check` - Check Checkbox/Radio
+
+Check a checkbox or radio button.
+
+```json
+{
+  "id": "accept-terms",
+  "action": "check",
+  "selector": "#terms-checkbox"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+---
+
+#### 17. `uncheck` - Uncheck Checkbox
+
+Uncheck a checkbox.
+
+```json
+{
+  "id": "unsubscribe",
+  "action": "uncheck",
+  "selector": "#newsletter-checkbox"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+---
+
+#### 18. `press` - Press Keyboard Key
+
+Press a keyboard key on an element.
+
+```json
+{
+  "id": "submit-with-enter",
+  "action": "press",
+  "selector": "#search-input",
+  "key": "Enter"
+}
+```
+
+**Supported Keys:**
+- `Enter`, `Escape`, `Tab`, `Backspace`, `Delete`
+- `ArrowUp`, `ArrowDown`, `ArrowLeft`, `ArrowRight`
+- `Home`, `End`, `PageUp`, `PageDown`
+- Modifiers: `Control+A`, `Shift+Tab`, `Alt+F4`, etc.
+
+**Fields:**
+- `selector` (required) - CSS selector
+- `key` (required) - Key to press
+
+---
+
+#### 19. `hover` - Mouse Hover
+
+Hover over an element to trigger hover effects.
+
+```json
+{
+  "id": "hover-menu",
+  "action": "hover",
+  "selector": ".dropdown-trigger"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+---
+
+#### 20. `count` - Count Elements
+
+Count how many elements match a selector.
+
+```json
+{
+  "id": "count-products",
+  "action": "count",
+  "selector": ".product-item"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+**Returns:**
+```json
+{
+  "selector": ".product-item",
+  "count": 42
+}
+```
+
+---
+
+#### 21. `isVisible` - Check Visibility
+
+Check if an element is visible on the page.
+
+```json
+{
+  "id": "check-modal",
+  "action": "isVisible",
+  "selector": "#success-modal"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+**Returns:**
+```json
+{
+  "selector": "#success-modal",
+  "visible": true
+}
+```
+
+---
+
+#### 22. `isEnabled` - Check If Enabled
+
+Check if an element is enabled (not disabled).
+
+```json
+{
+  "id": "check-submit",
+  "action": "isEnabled",
+  "selector": "#submit-btn"
+}
+```
+
+**Fields:**
+- `selector` (required) - CSS selector
+
+**Returns:**
+```json
+{
+  "selector": "#submit-btn",
+  "enabled": true
+}
+```
 
 ---
 

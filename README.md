@@ -6,7 +6,8 @@ Playwright provides modern browser automation with support for Chromium, Firefox
 
 ## Features
 
-- 🚀 Simple and intuitive API
+- 🚀 **Powered by Playwright** - Modern, fast, and reliable browser automation
+- 🎯 **Multi-Browser Support** - Chromium, Firefox, and WebKit
 - 🤖 **JSON-based Agent Task System** - Define browser automation workflows in JSON
 - 🌐 Browser automation and control
 - 📸 Screenshot capabilities
@@ -17,6 +18,8 @@ Playwright provides modern browser automation with support for Chromium, Firefox
 - 🎯 Element selection and manipulation
 - 🔄 Sequential or parallel agent execution
 - 📊 Comprehensive result tracking and logging
+- ⚡ **24 Task Actions** - Including Playwright-exclusive features
+- 🛠️ **Auto-Waiting** - Smart waits for elements automatically
 
 ## Installation
 
@@ -120,6 +123,8 @@ const controller = new ChromiumController(options);
 - `headless` (boolean): Run browser in headless mode (default: false)
 - `viewport` (object): Default viewport size (default: { width: 1920, height: 1080 })
 - `args` (array): Additional Chromium arguments
+- `defaultTimeout` (number): Default timeout for actions in ms (default: 30000)
+- `navigationTimeout` (number): Timeout for navigation in ms (default: 30000)
 
 ### Methods
 
@@ -127,9 +132,12 @@ const controller = new ChromiumController(options);
 
 - **`launch()`** - Launch the browser
 - **`close()`** - Close the browser
+- **`newContext(options)`** - Create a new browser context
 - **`newPage()`** - Create a new page
 - **`closePage()`** - Close the current page
+- **`closeContext()`** - Close the browser context
 - **`getPage()`** - Get the current page instance
+- **`getContext()`** - Get the browser context instance
 - **`getBrowser()`** - Get the browser instance
 
 #### Navigation
@@ -142,11 +150,20 @@ const controller = new ChromiumController(options);
 #### Element Interaction
 
 - **`click(selector, options)`** - Click an element
-- **`type(selector, text, options)`** - Type text into an input field
+- **`type(selector, text, options)`** - Type text (character by character if delay specified)
+- **`fill(selector, text, options)`** - Fill input instantly (faster)
 - **`waitForSelector(selector, options)`** - Wait for element to appear
 - **`getText(selector)`** - Get text content from an element
 - **`getTextAll(selector)`** - Get text from multiple elements
 - **`getAttribute(selector, attribute)`** - Get element attribute value
+- **`select(selector, value)`** - Select dropdown option
+- **`check(selector)`** - Check checkbox/radio button
+- **`uncheck(selector)`** - Uncheck checkbox
+- **`press(selector, key)`** - Press keyboard key
+- **`hover(selector)`** - Hover over element
+- **`count(selector)`** - Count matching elements
+- **`isVisible(selector)`** - Check if element is visible
+- **`isEnabled(selector)`** - Check if element is enabled
 
 #### Screenshots
 
@@ -189,10 +206,10 @@ npm run example:screenshot
 npm run example:scrape
 ```
 
-### Form Interaction
+### Playwright Features
 
 ```bash
-node examples/form-interaction.js
+npm run example:playwright
 ```
 
 ## Example: Web Scraping
@@ -342,7 +359,10 @@ try {
 ## Documentation
 
 - **[README.md](README.md)** - Main documentation (this file)
-- **[AGENT_GUIDE.md](AGENT_GUIDE.md)** - Complete guide for the agent task system
+- **[AGENT_GUIDE.md](AGENT_GUIDE.md)** - Complete guide for the agent task system (24 actions)
+- **[PLAYWRIGHT_FEATURES.md](PLAYWRIGHT_FEATURES.md)** - Playwright-specific features and advantages
+- **[MIGRATION_FROM_PUPPETEER.md](MIGRATION_FROM_PUPPETEER.md)** - Migration guide from Puppeteer
+- **[QUICK_START.md](QUICK_START.md)** - Get started in minutes
 
 ## CLI Commands
 
